@@ -1,0 +1,26 @@
+body
+{
+   margin-left: 5%;
+   max-width: 100%;
+   overflow-x: hidden;
+}
+.navbar-brand
+{
+   margin-left: 5%;
+   margin-bottom: 20px;
+}
+.navbar-nav
+{
+   margin-right: 5%;
+   margin-bottom: 20px;
+}
+.bodytop
+{
+   margin-top: 30px;
+   margin-left: 5%;
+   text-align: left;
+}
+.container
+{
+   margin: 60px;
+}
