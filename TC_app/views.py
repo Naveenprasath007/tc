@@ -37,7 +37,7 @@ def search_dates(request, pk=''):
                 end_date = datetime.strftime(end, "%Y-%m-%d")
                 startd=start_date+' 00:00:00'
                 endd=end_date+' 23:00:00'
-                df = pd.read_csv(r':\speridian\django v1 Deploy\TC_project\media\retreaver.csv')
+                df = pd.read_csv(r'media\retreaver.csv')
                 df=df[['Timestamp','RecordingURL']]
                 df['Timestamp1']=pd.to_datetime(df['Timestamp'], format='%Y-%m-%d')
                 df.sort_values(by=['Timestamp1'])      
