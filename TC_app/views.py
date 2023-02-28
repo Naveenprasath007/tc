@@ -13,19 +13,19 @@ def index(request):
         if request.method == 'POST':
             textfile =request.FILES['myfile'].readlines()
             date_dict={'result':textfile}
-            return render(request,'TC_app\index.html',context=date_dict)
+            return render(request,'TC_app/index.html',context=date_dict)
         else:
-            return render(request,'TC_app\index.html')
+            return render(request,'TC_app/index.html')
     except Exception as e:
         error={'error':e}
-        return render(request,'TC_app\error.html',context=error)
+        return render(request,'TC_app/error.html',context=error)
 
 def search_dates(request, pk=''):
     try:
         if request.method == "GET": # select dates in calendar
             form = forms.DateForm()
             form1 = forms.Sot()
-            return render(request, 'TC_app\date.html',{"form":form,"form1":form1} )
+            return render(request, 'TC_app/date.html',{"form":form,"form1":form1} )
         if request.method == "POST": # create cart from selected dates
             form = forms.DateForm(request.POST)
             form1 = forms.Sot(request.POST)
@@ -37,7 +37,7 @@ def search_dates(request, pk=''):
                 end_date = datetime.strftime(end, "%Y-%m-%d")
                 startd=start_date+' 00:00:00'
                 endd=end_date+' 23:00:00'
-                df = pd.read_csv(r'media\retreaver.csv')
+                df = pd.read_csv(r'media/retreaver.csv')
                 df=df[['Timestamp','RecordingURL']]
                 df['Timestamp1']=pd.to_datetime(df['Timestamp'], format='%Y-%m-%d')
                 df.sort_values(by=['Timestamp1'])      
@@ -52,10 +52,10 @@ def search_dates(request, pk=''):
                 arr = json.loads(json_records)
 
                         
-        return render(request, 'TC_app\date.html', {"form":form,"form1":form1,'d': arr,})
+        return render(request, 'TC_app/date.html', {"form":form,"form1":form1,'d': arr,})
     except Exception as e:
         error={'error':e}
-        return render(request,'TC_app\error.html',context=error)
+        return render(request,'TC_app/error.html',context=error)
 
 
 def uploadfile(request):
@@ -72,8 +72,8 @@ def uploadfile(request):
                     # the fileurl variable now contains the url to the file. This can be used to serve the file when needed.
                     fileurl = fs.url(file)
 
-        return render(request, "TC_app\\upload.html")
+        return render(request, "TC_app/upload.html")
 
     except Exception as e:
         error={'error':e}
-        return render(request,'TC_app\error.html',context=error)
+        return render(request,'TC_app/error.html',context=error)
