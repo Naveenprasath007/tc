@@ -47,6 +47,8 @@ def search_dates(request, pk=''):
                 df.sort_values(by=['Timestamp1'])      
                 start_datetime = datetime.strptime(startd, '%Y-%m-%d %H:%M:%S')
                 end_datetime = datetime.strptime(endd, '%Y-%m-%d %H:%M:%S')
+                print(start_datetime)
+                print(end_datetime)
                 print(Value)
                 print(sentiment)
                 val=int(Value)
