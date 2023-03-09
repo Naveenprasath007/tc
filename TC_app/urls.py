@@ -25,6 +25,8 @@ urlpatterns = [
     path("index", views.index) , 
     path("date",views.search_dates),
     path("uploadfile",views.uploadfile), 
+    path("salesperson",views.salesperson),
+    path("sentiment",views.sentiment),
 ]
 
 if settings.DEBUG:

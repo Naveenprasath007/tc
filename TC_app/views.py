@@ -24,27 +24,45 @@ def search_dates(request, pk=''):
     try:
         if request.method == "GET": # select dates in calendar
             form = forms.DateForm()
-            form1 = forms.Sot()
+            form1 = forms.Sentiment()
             return render(request, 'TC_app/date.html',{"form":form,"form1":form1} )
-        if request.method == "POST": # create cart from selected dates
+        if request.method == "POST": # create table from selected dates
             form = forms.DateForm(request.POST)
-            form1 = forms.Sot(request.POST)
+            form1 = forms.Sentiment(request.POST)
+            Value = request.POST.get('size')
             if form.is_valid():
+                
                 start = form.cleaned_data['start_date']
                 end = form.cleaned_data['end_date']
-                s= form1.data['S']
+                s= 'sortaz'
+                sentiment=form1.data['Sentiment']
                 start_date = datetime.strftime(start, "%Y-%m-%d")
                 end_date = datetime.strftime(end, "%Y-%m-%d")
                 startd=start_date+' 00:00:00'
                 endd=end_date+' 23:00:00'
-                df = pd.read_csv(r'media/retreaver.csv')
-                df=df[['Timestamp','RecordingURL']]
-                df['Timestamp1']=pd.to_datetime(df['Timestamp'], format='%Y-%m-%d')
+                df = pd.read_csv(r'media/data.csv')
+                df=df[['Timestamp','RecordingURL','SalesPerson','EnrollmentStatus','TotalDurationSecs','IVRDurationSecs','HoldDurationSecs','ConnectedSecs','Contact','score','sentiment' ]]
+  
+                df['Timestamp1']=pd.to_datetime(df['Timestamp'], format='%d-%m-%Y %H.%M%S')
                 df.sort_values(by=['Timestamp1'])      
                 start_datetime = datetime.strptime(startd, '%Y-%m-%d %H:%M:%S')
                 end_datetime = datetime.strptime(endd, '%Y-%m-%d %H:%M:%S')
+                print(Value)
+                print(sentiment)
+                val=int(Value)
+                sen=int(sentiment)
+                dff=[]
+                #filter by date and score
+                dff=df.loc[(df['Timestamp1'] >= start_datetime) & (df['Timestamp1'] <= end_datetime)  ]
+                dff=dff.loc[(dff['score'] <= val )]
 
-                dff=df.loc[(df['Timestamp1'] >= start_datetime) & (df['Timestamp1'] <= end_datetime)]
+                if sen == 4:
+                    dff=dff.loc[(dff['sentiment'] >= sen) ]
+                elif sen == 3:
+                    dff=dff.loc[(dff['sentiment'] == sen) ]
+                elif sen == 2:
+                    dff=dff.loc[(dff['sentiment'] <= sen) ]
+                dff=dff.dropna() 
                 if s == 'sortaz':
                     dff=dff.sort_values(by=['Timestamp1'])
                 json_records = dff.reset_index().to_json(orient ='records')
@@ -74,6 +92,32 @@ def uploadfile(request):
 
         return render(request, "TC_app/upload.html")
 
+    except Exception as e:
+        error={'error':e}
+        return render(request,'TC_app/error.html',context=error)
+    
+
+def salesperson(request):
+    try:
+        if request.method == 'POST':
+            textfile =request.FILES['myfile'].readlines()
+            date_dict={'result':textfile}
+            return render(request,'TC_app/salesperson.html',context=date_dict)
+        else:
+            return render(request,'TC_app/salesperson.html')
+    except Exception as e:
+        error={'error':e}
+        return render(request,'TC_app/error.html',context=error)
+    
+
+def sentiment(request):
+    try:
+        if request.method == 'POST':
+            textfile =request.FILES['myfile'].readlines()
+            date_dict={'result':textfile}
+            return render(request,'TC_app/salesperson.html',context=date_dict)
+        else:
+            return render(request,'TC_app/sentiment.html')
     except Exception as e:
         error={'error':e}
         return render(request,'TC_app/error.html',context=error)

@@ -17,10 +17,13 @@ body
 .bodytop
 {
    margin-top: 30px;
-   margin-left: 5%;
+   margin-left: 10%;
    text-align: left;
+   font-weight:bold;
 }
 .container
 {
    margin: 60px;
+   
 }
+

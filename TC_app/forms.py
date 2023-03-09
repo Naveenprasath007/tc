@@ -5,13 +5,12 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 class DateForm(forms.Form):
-    start_date = forms.DateField(widget=DateInput)
-    end_date = forms.DateField(widget=DateInput)
+    start_date = forms.DateField(label='Start Date',widget=DateInput)
+    end_date = forms.DateField(label='End Date',widget=DateInput)
 
-
-S1= [
-    ('sortaz','ascending'),('sortza','descending'),
+Sentiment= [
+    (4,'+VE'),(2,'-VE'),(3,'Neutral')
     ]
 
-class Sot(forms.Form):
-    S= forms.CharField(label='Sort By', widget=forms.Select(choices=S1))
+class Sentiment(forms.Form):
+    Sentiment= forms.CharField(label='Sentiment Choice ', widget=forms.Select(choices=Sentiment))
