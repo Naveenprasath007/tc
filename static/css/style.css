@@ -16,14 +16,26 @@ body
 }
 .bodytop
 {
-   margin-top: 30px;
-   margin-left: 10%;
+   position:absolute; 
+   margin-top: 10px;
    text-align: left;
    font-weight:bold;
+   left: 5%;
+      
 }
-.container
-{
-   margin: 60px;
-   
-}
+
+input[type=range] {
+   height: 10px;
+   -webkit-appearance: none;
+   margin: 10px ;
+   width: 10%;
+   border: 0px solid #010101;
+   background: white;
+ }
+
+ .container-fluid
+ {
+    margin: 40px; 
+    
+ }
 

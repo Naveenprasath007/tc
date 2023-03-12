@@ -9,181 +9,146 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
     <title>Truecoverage</title>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-sm hd">    
-        <a href="#"class="navbar-brand" >
-        <img src="{% static 'images/tc.png' %}"height="60",width="20" alt="Speridian">
-        </a>
-        <!--navbar toggler for smaller screen expand menu-->
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarMenu">
-         <ul class="navbar-nav ms-auto">
-           <li class="nav-item" >
-                <a  href="/tc/date"class="nav-link">
-        <!--The below <svg> for bootstap predefine icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="30" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                    <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-                </svg>
-                 </a>
-            </li>
+  <nav class="navbar navbar-expand-sm hd">    
+      <a href="#"class="navbar-brand" >
+      <img src="{% static 'images/tc.png' %}"height="60",width="20" alt="Speridian">
+      </a>
+      <!--navbar toggler for smaller screen expand menu-->
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMenu">
+       <ul class="navbar-nav ms-auto">
+         <li class="nav-item" >
+              <a  href="/tc/date"class="nav-link">
+      <!--The below <svg> for bootstap predefine icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="30" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+              </svg>
+               </a>
+          </li>
 
-         </ul>
-        </div> 
+       </ul>
+      </div> 
 </div>
 </nav>
-
-<div class="bodytop">  
-<div class="container">
-    <div class="row">
-      <div class="col-sm-5">
-        <form  method="post">
-            {% csrf_token %}
-            {{ form.as_table }} </div>
-            <div class="col-sm-2">
-            <label> Score(between 0&10) </label>
-            <input width="400" type="range" id="vol" name="size" min="0" max="10" onchange="show_value(this.value);">
-            <span id="slider_value" style="color:rgb(0, 0, 0);"></span>
-            </div>
-            <div class="col-sm-4">
-            {{ form1 }} 
-            <input type="submit" value="Search">      
-        </form>
+<div class="bodytop">   
+<div class="container-fluid" style="overflow-x:auto;">
+ 
+      <div class="btn btn-secondary">
+          <form  method="post">
+          {% csrf_token %}            
+          {{ form.as_table }}           
+          &ensp;
+          <label> Score :</label>
+          <input class="range" type="range" name="rangeInput" min="0" max="10" onchange="updateTextInput(this.value);">
+          <input class="btn btn-light" type="number"name="size" id="textInput" min="0" max="10" value="5" > 
+          &ensp;   
+          <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">Status   
+          </button>
+          <div class="dropdown-menu">
+              <div>
+                  <input type="checkbox" name="myInput"  onclick="myFunction()"value="Enrolled" checked>Enrolled<br>
+                  <input type="checkbox" name="myInput1" onclick="myFunction()" value="Cancelled" checked>Cancelled<br>
+                  <input type="checkbox" name="myInput2" onclick="myFunction()" value="PremiumPaid" checked>PremiumPaid<br>
+                  <input type="checkbox" name="myInput3" onclick="myFunction()" value="Submitted" checked>Submitted<br>
+                  <input type="checkbox" name="myInput4" onclick="myFunction()" value="Locked-Eligibility" checked>Locked-Eligibility<br>
+                  <input type="checkbox" name="myInput5"  onclick="myFunction()"value="Enrolled-PayLater" checked>Enrolled-PayLater<br>
+                  <input type="checkbox" name="myInput6" onclick="myFunction()" value="Locked-Payment" checked>Locked-Payment<br>
+                  <input type="checkbox" name="myInput7" onclick="myFunction()" value="Not Enrolled" checked>Not Enrolled<br>
+                  <input type="checkbox" name="myInput8" onclick="myFunction()" value="Pending Cancellation" checked>Pending Cancellation<br>
+                  <input type="checkbox" name="myInput9" onclick="myFunction()" value="Pending" checked>Pending<br>
+                  <input type="checkbox" name="myInput10" onclick="myFunction()" value="Locked-Enrollment" checked>Locked-Enrollment<br>
+              </div>
+          </div>
+           
+          &ensp;
+          <div class="btn btn-light">
+              {{ form1 }}
+          </div>
+          <input class="btn btn-primary" type="submit" value="Search">      
+          </form>
       </div>
-    </div>
-
 </div>
+  
 
 
+<div class="container-fluid" style="overflow-x:auto;">
 
-</div>
+  <table class="table table-striped"id="myTable">
+      <thead>
+          <tr> 
+          <th style="text-align: center">
+                  {% csrf_token %}
+                  <label>Date</label>
+                  <button onclick="sortTable(0)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down-alt" viewBox="0 0 16 16">
+                      <path d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z"/>
+                    </svg></button>
+          </th>
+          <th style="text-align: center">Sales Person
+              <input type="text" class="btn btn-light" id="myInput" onkeyup="myFunction()" placeholder="Search SalesPerson" title="Type in a name">
+          </th>
+          <th style="text-align: center">Status</th>
+          <th style="text-align: center">Score</th>
+          <th style="text-align: center">Sentiments</th>
+          </tr>
+      </thead>
+      <tbody>
+      {% if d %}  
+      {% for i in d %}
+      <tr>
+          <td style="text-align: center">{{i.Timestamp}}</td>
 
-<div class="container" style="overflow-x:auto;">
-
-    <table class="table table-striped"id="myTable">
-        <thead>
-            <tr> 
-            <th style="text-align: center" onclick="sortTable(0)" >Date </th>
-            <th style="text-align: center">Sales Person</th>
-            <th style="text-align: center">Status</th>
-            <th style="text-align: center">Score</th>
-            <th style="text-align: center">Sentiments</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% if d %}  
-        {% for i in d %}
-        <tr>
-            <td style="text-align: center">{{i.Timestamp}}</td>
-
-            <td style="text-align: center"><a href='salesperson'target="_blank" rel="noopener noreferrer">{{i.SalesPerson}}</a></td>
-            <td style="text-align: center">{{i.EnrollmentStatus}}</td>
-            <td style="text-align: center">{{i.score}}</td>
-            <td style="text-align: center"> 
-            {% if i.sentiment == 1 %}
-            <span style="font-size:150%;color:rgb(62, 62, 247);"><a style="text-decoration: none" href='sentiment'target="_blank" rel="noopener noreferrer">&bigstar;</a></span>
-            {% endif %}
-            {% if i.sentiment == 2 %}
-            <span style="font-size:150%;color:rgb(62, 62, 247);"><a style="text-decoration: none" href='sentiment'target="_blank" rel="noopener noreferrer">&bigstar;&bigstar;</a></span>
-            {% endif %}
-            {% if i.sentiment == 3 %}
-            <span style="font-size:150%;color:rgb(62, 62, 247);"><a style="text-decoration: none" href='sentiment'target="_blank" rel="noopener noreferrer">&bigstar;&bigstar;&bigstar;</a></span>
-            {% endif %}
-            {% if i.sentiment == 4 %}
-            <span style="font-size:150%;color:rgb(62, 62, 247);"><a style="text-decoration: none" href='sentiment'target="_blank" rel="noopener noreferrer">&bigstar;&bigstar;&bigstar;&bigstar;</a></span>
-            {% endif %}
-            {% if i.sentiment == 5 %}
-            <span style="font-size:150%;color:rgb(62, 62, 247);"><a style="text-decoration: none" href='sentiment'target="_blank" rel="noopener noreferrer">&bigstar;&bigstar;&bigstar;&bigstar;&bigstar;</a></span>
-            {% endif %}
-            </td>
-            
-        </tr>
-        
-        {% endfor %}
-        {% endif %}
-    </tbody>
+          <td style="text-align: center"><a style="text-decoration: none" href='salesperson/{{i.SalesPerson}}'target="_blank" rel="noopener noreferrer">{{i.SalesPerson}}</a></td>
+          <td style="text-align: center">{{i.EnrollmentStatus}}</td>
+          <td style="text-align: center">{{i.score}}</td>
+          <td style="text-align: center"> 
+          {% if i.sentiment == 1 %}
+          <span style="font-size:150%;color:rgb(62, 62, 247);"><a style="text-decoration: none" href='sentiment'target="_blank" rel="noopener noreferrer">&bigstar;</a></span>
+          {% endif %}
+          {% if i.sentiment == 2 %}
+          <span style="font-size:150%;color:rgb(62, 62, 247);"><a style="text-decoration: none" href='sentiment'target="_blank" rel="noopener noreferrer">&bigstar;&bigstar;</a></span>
+          {% endif %}
+          {% if i.sentiment == 3 %}
+          <span style="font-size:150%;color:rgb(62, 62, 247);"><a style="text-decoration: none" href='sentiment'target="_blank" rel="noopener noreferrer">&bigstar;&bigstar;&bigstar;</a></span>
+          {% endif %}
+          {% if i.sentiment == 4 %}
+          <span style="font-size:150%;color:rgb(62, 62, 247);"><a style="text-decoration: none" href='sentiment'target="_blank" rel="noopener noreferrer">&bigstar;&bigstar;&bigstar;&bigstar;</a></span>
+          {% endif %}
+          {% if i.sentiment == 5 %}
+          <span style="font-size:150%;color:rgb(62, 62, 247);"><a style="text-decoration: none" href='sentiment'target="_blank" rel="noopener noreferrer">&bigstar;&bigstar;&bigstar;&bigstar;&bigstar;</a></span>
+          {% endif %}
+          </td>
+          
+      </tr>
+      
+      {% endfor %}
+      {% endif %}
+  </tbody>
 </table>
 </div>
-
-
-
-
-
 </div>
-</div> 
 
 
-<script>
-    function sortTable(n) {
-      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-      table = document.getElementById("myTable");
-      switching = true;
-      //Set the sorting direction to ascending:
-      dir = "asc"; 
-      /*Make a loop that will continue until
-      no switching has been done:*/
-      while (switching) {
-        //start by saying: no switching is done:
-        switching = false;
-        rows = table.rows;
-        /*Loop through all table rows (except the
-        first, which contains table headers):*/
-        for (i = 1; i < (rows.length - 1); i++) {
-          //start by saying there should be no switching:
-          shouldSwitch = false;
-          /*Get the two elements you want to compare,
-          one from current row and one from the next:*/
-          x = rows[i].getElementsByTagName("TD")[n];
-          y = rows[i + 1].getElementsByTagName("TD")[n];
-          /*check if the two rows should switch place,
-          based on the direction, asc or desc:*/
-          if (dir == "asc") {
-            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-              //if so, mark as a switch and break the loop:
-              shouldSwitch= true;
-              break;
-            }
-          } else if (dir == "desc") {
-            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-              //if so, mark as a switch and break the loop:
-              shouldSwitch = true;
-              break;
-            }
-          }
-        }
-        if (shouldSwitch) {
-          /*If a switch has been marked, make the switch
-          and mark that a switch has been done:*/
-          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-          switching = true;
-          //Each time a switch is done, increase this count by 1:
-          switchcount ++;      
-        } else {
-          /*If no switching has been done AND the direction is "asc",
-          set the direction to "desc" and run the while loop again.*/
-          if (switchcount == 0 && dir == "asc") {
-            dir = "desc";
-            switching = true;
-          }
-        }
-      }
-    }
-
-    function show_value(x)
-{
- document.getElementById("slider_value").innerHTML=x;
-}
-    </script>
-
-    
 
 
+
+
+
+
+
+
+
+<script src="{% static 'js/myjs.js' %}">
+</script> 
 
 
 </body>

@@ -40,10 +40,52 @@
 </nav>
 
 <div class="bodytop">  
-    <h1>SalesPerson Details</h1>
+    <h1>SalesPerson Name: {{result}}</h1>
 
+
+
+<div class="container-fluid" style="overflow-x:auto;">
+
+    <table class="table table-striped"id="myTable">
+        <thead>
+            <tr> 
+            <th style="text-align: center">
+                    {% csrf_token %}
+                    <label>Date</label>
+                    <button onclick="sortTable(0)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down-alt" viewBox="0 0 16 16">
+                        <path d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z"/>
+                      </svg></button>
+            </th>
+            <th style="text-align: center">RecordingURL</th>
+            <th style="text-align: center">TotalDurationSecs</th>
+            <th style="text-align: center">IVRDurationSecs</th>
+            <th style="text-align: center">HoldDurationSecs</th>
+            <th style="text-align: center">ConnectedSecs</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+        {% if d %}  
+        {% for i in d %}
+        <tr>
+            <td style="text-align: center">{{i.Timestamp}}</td>
+            <td style="text-align: center">   
+            <a style="text-decoration: none" href='{{i.RecordingURL}}' target="_blank" rel="noopener noreferrer">Recording</a>
+            </td>
+            <td style="text-align: center">{{i.TotalDurationSecs}}</td>
+            <td style="text-align: center"> {{i.IVRDurationSecs}}</td>
+            <td style="text-align: center"> {{i.HoldDurationSecs}}</td>
+            <td style="text-align: center"> {{i.ConnectedSecs}}</td>
+            
+            
+        </tr>
+        
+        {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
 </div>
-
+</div>
 
 
 
@@ -60,6 +102,6 @@
 
 
 
-
+<script src="{% static 'js/myjs.js' %}"></script>
 </body>
 </html>
